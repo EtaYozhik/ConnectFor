@@ -7,6 +7,7 @@ var board= [[".",".",".",".",".",".","."],
 
 console.log(board)
 
+let wintext =document.getElementById("wintext")
 
 "use strict";
 let turn = 0
@@ -60,7 +61,9 @@ const ColClicked=(id)=>{
             board[i][col]="R"
             const token =document.getElementById(i.toString()+col)
             token.textContent="R" 
+            token.parentElement.style.backgroundColor="red"
             turntext.textContent="Y TURN"
+            turntext.style.backgroundColor="yellow"
             played++
             turn++
         }
@@ -68,7 +71,9 @@ const ColClicked=(id)=>{
             board[i][col]="Y"
             const token =document.getElementById(i.toString()+col)
             token.textContent="Y" 
+            token.parentElement.style.backgroundColor="yellow"
             turntext.textContent="R TURN"
+            turntext.style.backgroundColor="red"
             played++
             turn++
         }
@@ -78,7 +83,20 @@ const ColClicked=(id)=>{
     iswin()
     if (win === 1) {
         console.log("SOMEONE WON");
+        if (turn %2===0){
+            
+            wintext.textContent="YELLOW WINS"
+        }
+        if (turn %2===1){
+            
+            wintext.textContent="RED WINS"
+        }
         document.getElementById("winPopup").style.display = "flex";
+    }
+    if (win===0&&turn===42){
+        wintext.textContent="Nobody won... U guys must be bad at this..."
+        document.getElementById("winPopup").style.display = "flex";
+
     }
     
 
