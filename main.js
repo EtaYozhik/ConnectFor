@@ -15,7 +15,7 @@ let wintext =document.getElementById("wintext")
 let turn = 0
 let win=0
 let draw=0
-let speed=100
+let speed=50
 
 const turntext =document.getElementById("temp")
 turntext.textContent="R TURN"
@@ -76,7 +76,7 @@ const ColClicked=(id)=>{
                     fallingToken.textContent = "R"; 
                     fallingToken.parentElement.style.backgroundColor = "red";
 
-                    // If it's not the final landing spot, turn it OFF after a short delay
+                    // If it's not the final pause then turn off
                     if (j < i) {
                         setTimeout(() => {
                             fallingToken.textContent = "_"; 
@@ -94,9 +94,21 @@ const ColClicked=(id)=>{
         }
         if(board[i][col]==="." && played===0 && turn%2===1){
             board[i][col]="Y"
-            const token =document.getElementById(i.toString()+col)
-            token.textContent="Y" 
-            token.parentElement.style.backgroundColor="yellow"
+            for (let j=0; j<=i;j++){
+                setTimeout(() => {
+                    let fallingToken = document.getElementById(j.toString() + col);
+                    fallingToken.textContent = "Y"; 
+                    fallingToken.parentElement.style.backgroundColor = "yellow";
+                    if (j < i) {
+                        setTimeout(() => {
+                            fallingToken.textContent = "_"; 
+                            fallingToken.parentElement.style.backgroundColor = "#3d2737";
+                        }, speed);
+                    }
+                }, j * speed);
+            }
+
+            
             turntext.textContent="R TURN"
             turntext.style.backgroundColor="red"
             played++
