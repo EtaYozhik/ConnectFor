@@ -7,16 +7,19 @@ var board= [[".",".",".",".",".",".","."],
 
 console.log(board)
 
+
+
 let wintext =document.getElementById("wintext")
 
 "use strict";
 let turn = 0
 let win=0
 let draw=0
-
+let speed=100
 
 const turntext =document.getElementById("temp")
 turntext.textContent="R TURN"
+turntext.style.backgroundColor="red"
 
 function iswin(){
    for (let r=0; r<=5; r++){
@@ -51,6 +54,12 @@ function iswin(){
 
 }
 
+function redfall(j,col,token){
+            token.textContent="_" 
+            token.parentElement.style.backgroundColor="#3d2737"
+            
+}
+
 const ColClicked=(id)=>{
     const column=document.getElementById(id)
     col=Number(id)
@@ -59,9 +68,25 @@ const ColClicked=(id)=>{
         
         if(board[i][col]==="." && played===0 && turn%2===0){
             board[i][col]="R"
-            const token =document.getElementById(i.toString()+col)
-            token.textContent="R" 
-            token.parentElement.style.backgroundColor="red"
+            for (let j=0; j<=i;j++){
+                setTimeout(() => {
+                    let fallingToken = document.getElementById(j.toString() + col);
+                    
+                    // Turn color ON
+                    fallingToken.textContent = "R"; 
+                    fallingToken.parentElement.style.backgroundColor = "red";
+
+                    // If it's not the final landing spot, turn it OFF after a short delay
+                    if (j < i) {
+                        setTimeout(() => {
+                            fallingToken.textContent = "_"; 
+                            fallingToken.parentElement.style.backgroundColor = "#3d2737";
+                        }, speed);
+                    }
+                }, j * speed); // Stagger each row's start time
+            }
+
+            
             turntext.textContent="Y TURN"
             turntext.style.backgroundColor="yellow"
             played++
@@ -92,10 +117,28 @@ const ColClicked=(id)=>{
             wintext.textContent="RED WINS"
         }
         document.getElementById("winPopup").style.display = "flex";
+        document.getElementById("winPopup").style.flexDirection = "column";
+        document.getElementById("winPopup").style.alignItems = "center";
+        document.getElementById("wintext").style.display = "flex";
+        document.getElementById("wintext").style.flexDirection = "column";
+        document.getElementById("wintext").style.alignItems = "center";
+        document.getElementById("wintext2").style.display = "flex";
+        document.getElementById("wintext2").style.flexDirection = "column";
+        document.getElementById("wintext2").style.alignItems = "center";
+        
     }
     if (win===0&&turn===42){
         wintext.textContent="Nobody won... U guys must be bad at this..."
         document.getElementById("winPopup").style.display = "flex";
+        document.getElementById("winPopup").style.display = "flex";
+        document.getElementById("winPopup").style.flexDirection = "column";
+        document.getElementById("winPopup").style.alignItems = "center";
+        document.getElementById("wintext").style.display = "flex";
+        document.getElementById("wintext").style.flexDirection = "column";
+        document.getElementById("wintext").style.alignItems = "center";
+        document.getElementById("wintext2").style.display = "flex";
+        document.getElementById("wintext2").style.flexDirection = "column";
+        document.getElementById("wintext2").style.alignItems = "center";
 
     }
     
