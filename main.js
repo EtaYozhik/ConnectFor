@@ -15,7 +15,7 @@ let wintext =document.getElementById("wintext")
 let turn = 0
 let win=0
 let draw=0
-let speed=50
+let speed=100
 
 const turntext =document.getElementById("temp")
 turntext.textContent="R TURN"
@@ -30,6 +30,8 @@ function iswin(){
                     win=1
                 }
             }
+
+
 
             if(c<=3){
                 if (board[r][c]===board[r][c+1] && board[r][c]===board[r][c+2] && board[r][c]===board[r][c+3] && board[r][c]!="."){
@@ -72,11 +74,10 @@ const ColClicked=(id)=>{
                 setTimeout(() => {
                     let fallingToken = document.getElementById(j.toString() + col);
                     
-                    // Turn color ON
+                   
                     fallingToken.textContent = "R"; 
                     fallingToken.parentElement.style.backgroundColor = "red";
 
-                    // If it's not the final pause then turn off
                     if (j < i) {
                         setTimeout(() => {
                             fallingToken.textContent = "_"; 
